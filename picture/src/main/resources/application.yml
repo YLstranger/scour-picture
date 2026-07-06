@@ -1,0 +1,74 @@
+server:
+  port: ${SERVER_PORT:8082}
+  servlet:
+    context-path: /api
+    session:
+      cookie:
+        max-age: 2592000
+
+spring:
+  # Local development:
+  # 1. Copy this file to application-local.yml.
+  # 2. Fill local passwords, COS keys and AI keys in application-local.yml.
+  # 3. application-local.yml is ignored by git and will override these defaults.
+  config:
+    import: optional:classpath:application-local.yml
+  application:
+    name: picture
+  data:
+    redis:
+      database: ${REDIS_DATABASE:2}
+      host: ${REDIS_HOST:127.0.0.1}
+      password: ${REDIS_PASSWORD:}
+      port: ${REDIS_PORT:6379}
+      timeout: 5000
+  session:
+    store-type: redis
+    timeout: 2592000
+  servlet:
+    multipart:
+      max-file-size: 10MB
+  shardingsphere:
+    datasource:
+      names: yu_picture
+      yu_picture:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: ${DB_URL:jdbc:mysql://localhost:3306/yu_picture}
+        username: ${DB_USERNAME:root}
+        password: ${DB_PASSWORD:}
+    props:
+      sql-show: ${SHARDINGSPHERE_SQL_SHOW:true}
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    enable-sql-runner: true
+    db-config:
+      logic-delete-field: isDelete
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+knife4j:
+  enable: true
+  openapi:
+    title: 接口文档
+    version: 1.0
+    group:
+      default:
+        api-rule: package
+        api-rule-resources:
+          - cn.com.scour.picture.controller
+
+cos:
+  client:
+    host: ${COS_HOST:}
+    secretId: ${COS_SECRET_ID:}
+    secretKey: ${COS_SECRET_KEY:}
+    region: ${COS_REGION:}
+    bucket: ${COS_BUCKET:}
+
+aliYunAi:
+  apiKey: ${ALIYUN_AI_API_KEY:}

@@ -1,0 +1,37 @@
+# 本地敏感配置
+picture/src/main/resources/application-local.yml
+**/application-local.yml
+**/.env
+**/.env.local
+**/.env.*.local
+
+# 后端构建产物
+picture/target/
+**/target/
+
+# 前端依赖和构建产物
+picture-web/node_modules/
+picture-web/dist/
+picture-web/.vite/
+
+# 日志
+*.log
+logs/
+**/logs/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 临时文件
+*.tmp
+*.temp
+.cache/
